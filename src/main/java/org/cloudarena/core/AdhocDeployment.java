@@ -1,7 +1,7 @@
-package org.microsdk.core;
+package org.cloudarena.core;
 
 import com.google.common.io.ByteStreams;
-import org.microsdk.api.TestSubject;
+import org.cloudarena.api.TestSubject;
 import org.rebaze.integrity.tree.api.Selector;
 import org.rebaze.integrity.tree.api.Tree;
 import org.rebaze.integrity.tree.api.TreeBuilder;

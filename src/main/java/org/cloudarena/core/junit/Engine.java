@@ -1,4 +1,4 @@
-package org.microsdk.core.junit;
+package org.cloudarena.core.junit;
 
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.ExecutionRequest;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class Engine extends HierarchicalTestEngine<MicrosdkEngineExecutionContext> {
 
-    public static final String ENGINE_ID = "org.microsdk";
+    public static final String ENGINE_ID = "org.cloudarena";
 
     @Override
     public String getId() {
@@ -22,7 +22,7 @@ public class Engine extends HierarchicalTestEngine<MicrosdkEngineExecutionContex
      */
     @Override
     public Optional<String> getGroupId() {
-        return Optional.of("org.microsdk");
+        return Optional.of("org.cloudarena");
     }
 
     /**

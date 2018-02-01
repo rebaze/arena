@@ -1,4 +1,4 @@
-package org.microsdk.api;
+package org.cloudarena.api;
 
 import org.junit.platform.commons.annotation.Testable;
 

@@ -1,4 +1,4 @@
-package org.microsdk.api;
+package org.cloudarena.api;
 
 public interface DependencyService {
     void init();

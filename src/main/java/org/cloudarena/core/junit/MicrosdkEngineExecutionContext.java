@@ -1,4 +1,4 @@
-package org.microsdk.core.junit;
+package org.cloudarena.core.junit;
 
 import org.junit.platform.engine.ConfigurationParameters;
 import org.junit.platform.engine.EngineExecutionListener;

@@ -1,7 +1,7 @@
-package org.microsdk.core.junit;
+package org.cloudarena.core.junit;
 
 import org.junit.platform.engine.*;
-import org.microsdk.api.DependencyService;
+import org.cloudarena.api.DependencyService;
 import org.rebaze.integrity.tree.api.Tree;
 import org.rebaze.integrity.tree.api.TreeSession;
 import org.rebaze.integrity.tree.util.DefaultTreeSessionFactory;
@@ -10,7 +10,7 @@ public class SimpleEngine implements TestEngine {
 
     @Override
     public String getId() {
-        return "com.microsdk";
+        return "org.cloudarena.junit";
     }
 
     @Override

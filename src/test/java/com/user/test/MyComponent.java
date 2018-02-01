@@ -1,4 +1,4 @@
-package com.acme.osgi;
+package com.user.test;
 
 public class MyComponent {
 

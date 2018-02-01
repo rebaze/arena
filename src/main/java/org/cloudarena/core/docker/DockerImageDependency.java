@@ -1,11 +1,11 @@
-package org.microsdk.core.docker;
+package org.cloudarena.core.docker;
 
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
 import com.spotify.docker.client.messages.ContainerConfig;
 import com.spotify.docker.client.messages.ContainerCreation;
 import com.spotify.docker.client.messages.ContainerInfo;
-import org.microsdk.api.DependencyService;
+import org.cloudarena.api.DependencyService;
 
 public class DockerImageDependency implements DependencyService {
 

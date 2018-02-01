@@ -1,4 +1,4 @@
-package org.microsdk.core.junit;
+package org.cloudarena.core.junit;
 
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;

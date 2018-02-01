@@ -22,10 +22,10 @@ ext.log4jVersion         = '2.9.0'
 apply plugin: 'java-library'
 apply plugin: 'maven'
 
-group = 'org.microsdk'
+group = 'org.cloudarena'
 version = '0.0.1-SNAPSHOT'
 
-description = """microSDK core library"""
+description = """clud arena core library"""
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -48,7 +48,7 @@ compileTestJava {
 junitPlatform {
 	filters {
 		engines {
-			// include 'junit-jupiter', 'junit-vintage'
+			 include 'junit-jupiter', 'org.cloudarena.junit'
 			// exclude 'custom-engine'
 		}
 		tags {

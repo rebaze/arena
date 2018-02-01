@@ -1,6 +1,5 @@
-package org.microsdk.core.junit;
+package org.cloudarena.core.junit;
 
-import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor;
 import org.junit.platform.engine.support.descriptor.ClassSource;
@@ -8,17 +7,16 @@ import org.junit.platform.engine.support.descriptor.MethodSource;
 
 import java.lang.reflect.Method;
 
-public class ScenarioDependencyDescriptor extends AbstractTestDescriptor {
-
+public class DeploymentTestDescriptor extends AbstractTestDescriptor {
     private final Class<?> javaClass;
     private final Method javaMethod;
 
-    public ScenarioDependencyDescriptor(UniqueId uniqueId, Class<?> javaClass, Method m) {
-        super(uniqueId.append("dependency",javaClass.getName()),"Verifying external dependency " + javaClass.getSimpleName() + ":" + m.getName(),MethodSource.from(javaClass.getName(),m.getName()));
+    public DeploymentTestDescriptor(UniqueId uniqueId, Class<?> javaClass, Method m) {
+        super(uniqueId.append("deployment",javaClass.getName()),"Candidate: " + javaClass.getName(),MethodSource.from(javaClass.getName(),m.getName()));
         this.javaClass = javaClass;
         this.javaMethod = m;
-
     }
+
 
     public Class<?> getJavaClass() {
         return javaClass;
@@ -29,8 +27,7 @@ public class ScenarioDependencyDescriptor extends AbstractTestDescriptor {
     }
 
     @Override
-    public TestDescriptor.Type getType() {
-        return TestDescriptor.Type.TEST;
+    public Type getType() {
+        return Type.TEST;
     }
 }
-

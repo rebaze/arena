@@ -1,15 +1,15 @@
 package com.user.test;
 
-import com.acme.osgi.MyComponent;
-import org.microsdk.api.*;
-import org.microsdk.api.DependencyService;
-import org.microsdk.core.*;
-import org.microsdk.core.docker.DockerImageDependency;
+import org.cloudarena.api.*;
+import org.cloudarena.api.DependencyService;
+import org.cloudarena.core.*;
+import org.cloudarena.core.docker.DockerImageDependency;
 
 import java.io.IOException;
 
-import static org.microsdk.core.docker.DockerImageDependency.docker;
-import static org.microsdk.core.docker.DockerImageDependency.mariaDB;
+import static org.assertj.core.api.Assertions.fail;
+import static org.cloudarena.core.docker.DockerImageDependency.docker;
+import static org.cloudarena.core.docker.DockerImageDependency.mariaDB;
 
 @Arena
 public class ScenarioExample {
@@ -38,6 +38,6 @@ public class ScenarioExample {
 
     @Plan
     void scene( ) {
-
+        fail("i want to fail");
     }
 }

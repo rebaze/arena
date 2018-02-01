@@ -1,12 +1,12 @@
-package org.microsdk.core.junit;
+package org.cloudarena.core.junit;
 
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.discovery.ClassSelector;
 import org.junit.platform.engine.discovery.MethodSelector;
-import org.microsdk.api.Dependency;
-import org.microsdk.api.Candidate;
-import org.microsdk.api.Plan;
-import org.microsdk.api.Arena;
+import org.cloudarena.api.Dependency;
+import org.cloudarena.api.Candidate;
+import org.cloudarena.api.Plan;
+import org.cloudarena.api.Arena;
 
 import java.lang.reflect.Method;
 import java.util.List;
