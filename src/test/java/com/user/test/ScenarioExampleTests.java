@@ -10,34 +10,41 @@ import static org.cloudarena.core.docker.DockerImageDependency.docker;
 import static org.cloudarena.core.docker.DockerImageDependency.mariaDB;
 
 @Arena
-public class ScenarioExampleTests {
+public class ScenarioExampleTests
+{
 
     @Candidate
-    TestSubject adhocDeployment() {
+    TestSubject adhocDeployment()
+    {
         return AdhocDeployment.builder()
-                .add(MyComponent.class)
-                .build();
+            .add( MyComponent.class )
+            .build();
     }
 
     @Candidate
-    TestSubject fromGradleClassPath() {
-        return ClasspathDeployment.builder().gav("org.rebaze.integrity:org.rebaze.integrity.tree").build();
+    TestSubject fromGradleClassPath()
+    {
+        return ClasspathDeployment.builder().gav( "org.rebaze.integrity:org.rebaze.integrity.tree" )
+            .build();
     }
 
     @Dependency
-    DockerImageDependency mariadb() {
-        return docker("mariadb:latest");
+    DockerImageDependency mariadb()
+    {
+        return docker( "mariadb:latest" );
     }
 
     @Dependency
-    DependencyService mariadbService() {
+    DependencyService mariadbService()
+    {
         return mariaDB();
     }
 
     // is this a blackbox or a whitebox test.
 
     @Plan
-    void scene( ) {
-        fail("i want to fail");
+    void scene()
+    {
+        fail( "i want to fail" );
     }
 }

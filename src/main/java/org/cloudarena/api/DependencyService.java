@@ -1,6 +1,7 @@
 package org.cloudarena.api;
 
-public interface DependencyService {
+public interface DependencyService
+{
     void init();
 
     void start();

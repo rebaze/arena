@@ -2,32 +2,37 @@ package org.cloudarena.core.junit;
 
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor;
-import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 
 import java.lang.reflect.Method;
 
-public class DeploymentTestDescriptor extends AbstractTestDescriptor {
+public class DeploymentTestDescriptor extends AbstractTestDescriptor
+{
     private final Class<?> javaClass;
     private final Method javaMethod;
 
-    public DeploymentTestDescriptor(UniqueId uniqueId, Class<?> javaClass, Method m) {
-        super(uniqueId.append("deployment",javaClass.getName()),"Candidate: " + javaClass.getName(),MethodSource.from(javaClass.getName(),m.getName()));
+    public DeploymentTestDescriptor( UniqueId uniqueId, Class<?> javaClass, Method m )
+    {
+        super( uniqueId.append( "deployment", javaClass.getName() ),
+            "Candidate: " + javaClass.getName(),
+            MethodSource.from( javaClass.getName(), m.getName() ) );
         this.javaClass = javaClass;
         this.javaMethod = m;
     }
 
-
-    public Class<?> getJavaClass() {
+    public Class<?> getJavaClass()
+    {
         return javaClass;
     }
 
-    public Method getJavaMethod() {
+    public Method getJavaMethod()
+    {
         return javaMethod;
     }
 
     @Override
-    public Type getType() {
+    public Type getType()
+    {
         return Type.TEST;
     }
 }

@@ -1,4 +1,5 @@
 package org.cloudarena.api;
 
-public interface Context {
+public interface Context
+{
 }

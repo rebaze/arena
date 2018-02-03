@@ -1,11 +1,12 @@
 package com.user.test;
 
-public class MyComponent {
+public class MyComponent
+{
 
-    public void activate() {
+    public void activate()
+    {
 
     }
-
 
 }
 

@@ -11,8 +11,9 @@ import java.lang.annotation.Target;
  * DependencyService can be data but can also be a service that is expected to be running.
  * Only meta-data is included into the Tree of the Plan output.
  */
-@Target({ ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.METHOD } )
+@Retention( RetentionPolicy.RUNTIME )
 @Testable
-public @interface Dependency {
+public @interface Dependency
+{
 }

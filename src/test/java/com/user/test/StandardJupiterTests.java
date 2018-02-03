@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class StandardJupiterTests {
+public class StandardJupiterTests
+{
 
     @Test
-    public void testMe() {
-        fail("failme");
+    public void testMe()
+    {
+        fail( "failme" );
     }
 }

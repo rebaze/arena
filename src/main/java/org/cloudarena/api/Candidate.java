@@ -10,10 +10,10 @@ import java.lang.annotation.Target;
 /**
  * Deployments are always static code (aka data).
  * Deployments are included into the result of a Plan.
- *
  */
-@Target({ ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.METHOD } )
+@Retention( RetentionPolicy.RUNTIME )
 @Testable
-public @interface Candidate {
+public @interface Candidate
+{
 }

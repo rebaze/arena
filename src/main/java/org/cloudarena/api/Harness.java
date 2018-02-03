@@ -2,11 +2,12 @@ package org.cloudarena.api;
 
 import java.util.function.Consumer;
 
-public interface Harness {
+public interface Harness
+{
 
-    Harness with(TestSubject deployment);
+    Harness with( TestSubject deployment );
 
     Harness configure();
 
-    <T> TestExecutionReceipt<T> execute(Consumer<Context> consumer);
+    <T> TestExecutionReceipt<T> execute( Consumer<Context> consumer );
 }
