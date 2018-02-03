@@ -35,7 +35,7 @@ public class Engine extends HierarchicalTestEngine<MicrosdkEngineExecutionContex
 
     @Override
     public TestDescriptor discover(EngineDiscoveryRequest discoveryRequest, UniqueId uniqueId) {
-        MicrosdkEngineDescriptor engineDescriptor = new MicrosdkEngineDescriptor(uniqueId);
+        ArenaEngineDescriptor engineDescriptor = new ArenaEngineDescriptor(uniqueId);
         new ScenarioDiscovery().resolveSelectors(discoveryRequest, engineDescriptor);
         return engineDescriptor;
     }

@@ -15,7 +15,7 @@ public class SimpleEngine implements TestEngine {
 
     @Override
     public TestDescriptor discover(EngineDiscoveryRequest discoveryRequest, UniqueId uniqueId) {
-        MicrosdkEngineDescriptor engineDescriptor = new MicrosdkEngineDescriptor(uniqueId);
+        ArenaEngineDescriptor engineDescriptor = new ArenaEngineDescriptor(uniqueId);
         new ScenarioDiscovery().resolveSelectors(discoveryRequest, engineDescriptor);
         return engineDescriptor;
     }

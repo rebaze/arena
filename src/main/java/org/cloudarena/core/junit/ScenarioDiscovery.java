@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 public class ScenarioDiscovery {
-    public void resolveSelectors(EngineDiscoveryRequest discoveryRequest, MicrosdkEngineDescriptor engineDescriptor) {
+    public void resolveSelectors(EngineDiscoveryRequest discoveryRequest, ArenaEngineDescriptor engineDescriptor) {
         // just assume that annotating the class with Arena is fine for now:
         List<ClassSelector> classes = discoveryRequest.getSelectorsByType(ClassSelector.class);
         for (ClassSelector clazz : classes) {

@@ -4,9 +4,9 @@ import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
 import org.junit.platform.engine.support.hierarchical.Node;
 
-public class MicrosdkEngineDescriptor extends EngineDescriptor implements Node<MicrosdkEngineExecutionContext> {
+public class ArenaEngineDescriptor extends EngineDescriptor implements Node<MicrosdkEngineExecutionContext> {
 
-    public MicrosdkEngineDescriptor(UniqueId uniqueId) {
+    public ArenaEngineDescriptor(UniqueId uniqueId) {
         super(uniqueId,"Arena Arena Engine");
 
     }

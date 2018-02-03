@@ -1,21 +1,19 @@
 package com.user.test;
 
 import org.cloudarena.api.*;
-import org.cloudarena.api.DependencyService;
-import org.cloudarena.core.*;
+import org.cloudarena.core.AdhocDeployment;
+import org.cloudarena.core.ClasspathDeployment;
 import org.cloudarena.core.docker.DockerImageDependency;
-
-import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.fail;
 import static org.cloudarena.core.docker.DockerImageDependency.docker;
 import static org.cloudarena.core.docker.DockerImageDependency.mariaDB;
 
 @Arena
-public class ScenarioExample {
+public class ScenarioExampleTests {
 
     @Candidate
-    TestSubject adhocDeployment() throws IOException {
+    TestSubject adhocDeployment() {
         return AdhocDeployment.builder()
                 .add(MyComponent.class)
                 .build();
@@ -35,6 +33,8 @@ public class ScenarioExample {
     DependencyService mariadbService() {
         return mariaDB();
     }
+
+    // is this a blackbox or a whitebox test.
 
     @Plan
     void scene( ) {
