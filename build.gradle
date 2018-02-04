@@ -7,91 +7,22 @@ buildscript {
 	}
 }
 
-
-repositories {
-    mavenCentral()
-     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-     maven { url "http://repo.maven.apache.org/maven2" }
-	mavenLocal()
-}
-
-ext.junitPlatformVersion = '1.1.0-M2'
-ext.junitJupiterVersion  = '5.1.0-M2'
-ext.log4jVersion         = '2.9.0'
-
-apply plugin: 'java-library'
-apply plugin: 'maven'
-
 group = 'org.cloudarena'
 version = '0.0.1-SNAPSHOT'
 
-description = """clud arena core library"""
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+description = """cloud arena core library"""
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
 
-apply plugin: 'org.junit.platform.gradle.plugin'
-
-jar {
-	baseName = 'junit5-gradle-consumer'
-	version = '1.0.0-SNAPSHOT'
-}
-
-compileTestJava {
-	options.compilerArgs += '-parameters'
-}
-
-junitPlatform {
-	filters {
-		engines {
-			 include 'junit-jupiter', 'org.cloudarena.junit'
-			// exclude 'custom-engine'
-		}
-		tags {
-			// include 'fast'
-			exclude 'slow'
-		}
-		// includeClassNamePattern '.*Test'
+subprojects {
+	repositories {
+		mavenCentral()
+		maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+		maven { url "http://repo.maven.apache.org/maven2" }
+		mavenLocal()
 	}
-	// configurationParameter 'junit.jupiter.conditions.deactivate', '*'
-	// enableStandardTestTask true
-	// reportsDir file('build/test-results/junit-platform') // this is the default
-	 logManager 'org.apache.logging.log4j.jul.LogManager'
 }
 
-dependencies {
-    api group: 'org.slf4j', name: 'slf4j-api', version:'1.6.1'
-    testRuntimeOnly group: 'org.slf4j', name: 'slf4j-simple', version:'1.6.1'
-    compile("org.junit.platform:junit-platform-commons:${junitPlatformVersion}")
-    compile("org.junit.platform:junit-platform-engine:${junitPlatformVersion}")
 
-
-    //compile('io.kubernetes:client-java:1.0.0-beta2')
-    compile 'com.spotify:docker-client:8.10.1'
-    compile 'org.osgi:org.osgi.core:6.0.0'
-    compile 'org.osgi:osgi.cmpn:6.0.0'
-    
-    compile 'org.rebaze.integrity:org.rebaze.integrity.tree:0.4.0-SNAPSHOT'
-    compile 'org.projectlombok:lombok:1.16.20'
-    compile 'com.google.guava:guava:23.6-jre'
-
-	testCompile 'org.assertj:assertj-core:3.9.0'
-
-    // JUnit Jupiter API and TestEngine implementation
-	testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
-	testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
-
-	// To avoid compiler warnings about @API annotations in JUnit code
-	testCompileOnly('org.apiguardian:apiguardian-api:1.0.0')
-
-	// To use Log4J's LogManager
-	testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
-	testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
-
-	// Only needed to run tests in an (IntelliJ) IDE(A) that bundles an older version
-	testRuntime("org.junit.platform:junit-platform-launcher:${junitPlatformVersion}")
-}

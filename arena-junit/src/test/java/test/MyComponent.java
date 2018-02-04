@@ -1,4 +1,4 @@
-package com.user.test;
+package test;
 
 public class MyComponent
 {

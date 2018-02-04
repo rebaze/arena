@@ -1,4 +1,4 @@
-package com.user.test;
+package test;
 
 import org.cloudarena.api.*;
 import org.cloudarena.core.AdhocDeployment;
