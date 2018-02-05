@@ -1,4 +1,4 @@
-package org.cloudarena.core.junit;
+package org.cloudarena.junit.core;
 
 import org.junit.platform.engine.ConfigurationParameters;
 import org.junit.platform.engine.EngineExecutionListener;

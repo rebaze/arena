@@ -1,23 +1,26 @@
-package org.cloudarena.core.junit;
+package org.cloudarena.junit.core;
 
+import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 
 import java.lang.reflect.Method;
 
-public class DeploymentTestDescriptor extends AbstractTestDescriptor
+public class ScenarioDependencyDescriptor extends AbstractTestDescriptor
 {
+
     private final Class<?> javaClass;
     private final Method javaMethod;
 
-    public DeploymentTestDescriptor( UniqueId uniqueId, Class<?> javaClass, Method m )
+    public ScenarioDependencyDescriptor( UniqueId uniqueId, Class<?> javaClass, Method m )
     {
-        super( uniqueId.append( "deployment", javaClass.getName() ),
-            "Candidate: " + javaClass.getName(),
+        super( uniqueId.append( "dependency", javaClass.getName() ),
+            "Verifying external dependency " + javaClass.getSimpleName() + ":" + m.getName(),
             MethodSource.from( javaClass.getName(), m.getName() ) );
         this.javaClass = javaClass;
         this.javaMethod = m;
+
     }
 
     public Class<?> getJavaClass()
@@ -31,8 +34,9 @@ public class DeploymentTestDescriptor extends AbstractTestDescriptor
     }
 
     @Override
-    public Type getType()
+    public TestDescriptor.Type getType()
     {
-        return Type.TEST;
+        return TestDescriptor.Type.TEST;
     }
 }
+

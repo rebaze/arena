@@ -1,4 +1,4 @@
-package org.cloudarena.core;
+package org.cloudarena.junit.core;
 
 import com.google.common.io.ByteStreams;
 import org.cloudarena.api.TestSubject;

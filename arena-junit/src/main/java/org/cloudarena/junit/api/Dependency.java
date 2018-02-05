@@ -1,4 +1,4 @@
-package org.cloudarena.api;
+package org.cloudarena.junit.api;
 
 import org.junit.platform.commons.annotation.Testable;
 

@@ -1,4 +1,4 @@
-package org.cloudarena.core.docker;
+package org.cloudarena.docker.core;
 
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
@@ -9,7 +9,6 @@ import org.cloudarena.api.DependencyService;
 
 public class DockerImageDependency implements DependencyService
 {
-
     private final String image;
     private ContainerInfo info;
     private DockerClient docker;

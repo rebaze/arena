@@ -1,3 +1,4 @@
 rootProject.name = 'org.cloudarena.core'
 
+include "arena-api"
 include "arena-junit"

@@ -1,8 +1,8 @@
 package test;
 
 import org.cloudarena.api.*;
-import org.cloudarena.core.AdhocDeployment;
-import org.cloudarena.core.ClasspathDeployment;
+import org.cloudarena.junit.core.AdhocDeployment;
+import org.cloudarena.junit.core.ClasspathDeployment;
 import org.cloudarena.core.docker.DockerImageDependency;
 
 import static org.assertj.core.api.Assertions.fail;

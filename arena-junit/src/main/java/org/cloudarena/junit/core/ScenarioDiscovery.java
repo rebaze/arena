@@ -1,9 +1,9 @@
-package org.cloudarena.core.junit;
+package org.cloudarena.junit.core;
 
-import org.cloudarena.api.Arena;
-import org.cloudarena.api.Candidate;
-import org.cloudarena.api.Dependency;
-import org.cloudarena.api.Plan;
+import org.cloudarena.junit.api.Arena;
+import org.cloudarena.junit.api.Candidate;
+import org.cloudarena.junit.api.Dependency;
+import org.cloudarena.junit.api.Plan;
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.discovery.ClassSelector;
 import org.junit.platform.engine.discovery.MethodSelector;

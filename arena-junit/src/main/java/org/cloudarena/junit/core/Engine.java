@@ -1,4 +1,4 @@
-package org.cloudarena.core.junit;
+package org.cloudarena.junit.core;
 
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.ExecutionRequest;

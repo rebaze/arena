@@ -1,4 +1,4 @@
-package org.cloudarena.core.junit;
+package org.cloudarena.junit.core;
 
 import org.cloudarena.api.DependencyService;
 import org.junit.platform.engine.*;

@@ -1,4 +1,4 @@
-package org.cloudarena.api;
+package org.cloudarena.junit.api;
 
 import org.junit.platform.commons.annotation.Testable;
 
@@ -7,9 +7,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target( { ElementType.TYPE } )
+/**
+ * Deployments are always static code (aka data).
+ * Deployments are included into the result of a Plan.
+ */
+@Target( { ElementType.METHOD } )
 @Retention( RetentionPolicy.RUNTIME )
 @Testable
-public @interface Arena
+public @interface Candidate
 {
 }
