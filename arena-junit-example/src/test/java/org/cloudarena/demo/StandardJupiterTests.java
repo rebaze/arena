@@ -1,4 +1,4 @@
-package test;
+package org.cloudarena.demo;
 
 import org.junit.jupiter.api.Test;
 

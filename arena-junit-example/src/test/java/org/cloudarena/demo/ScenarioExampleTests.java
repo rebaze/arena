@@ -1,13 +1,17 @@
-package test;
+package org.cloudarena.demo;
 
 import org.cloudarena.api.*;
+import org.cloudarena.docker.core.DockerImageDependency;
+import org.cloudarena.junit.api.Arena;
+import org.cloudarena.junit.api.Candidate;
+import org.cloudarena.junit.api.Dependency;
+import org.cloudarena.junit.api.Plan;
 import org.cloudarena.junit.core.AdhocDeployment;
 import org.cloudarena.junit.core.ClasspathDeployment;
-import org.cloudarena.core.docker.DockerImageDependency;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.cloudarena.core.docker.DockerImageDependency.docker;
-import static org.cloudarena.core.docker.DockerImageDependency.mariaDB;
+import static org.cloudarena.docker.core.DockerImageDependency.docker;
+import static org.cloudarena.docker.core.DockerImageDependency.mariaDB;
 
 @Arena
 public class ScenarioExampleTests

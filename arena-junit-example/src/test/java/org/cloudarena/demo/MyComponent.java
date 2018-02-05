@@ -1,4 +1,4 @@
-package test;
+package org.cloudarena.demo;
 
 public class MyComponent
 {
