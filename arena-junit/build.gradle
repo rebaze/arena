@@ -1,5 +1,5 @@
-ext.junitPlatformVersion = '1.1.0-M2'
-ext.junitJupiterVersion = '5.1.0-M2'
+ext.junitPlatformVersion = '1.1.0-RC1'
+ext.junitJupiterVersion = '5.1.0-RC1'
 ext.log4jVersion = '2.9.0'
 
 apply plugin: 'java-library'
@@ -40,6 +40,7 @@ junitPlatform {
 
 dependencies {
     api project(":arena-api")
+    api project(":arena-docker")
 
     api group: 'org.slf4j', name: 'slf4j-api', version: '1.6.1'
     testRuntimeOnly group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
