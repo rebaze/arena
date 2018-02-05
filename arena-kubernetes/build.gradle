@@ -1,6 +1,3 @@
-apply plugin: 'java-library'
-apply plugin: 'maven'
-
 dependencies {
     api project(":arena-api")
     compile('io.kubernetes:client-java:1.0.0-beta2')

@@ -1,0 +1,16 @@
+ext.junitPlatformVersion = '1.1.0-RC1'
+ext.junitJupiterVersion = '5.1.0-RC1'
+ext.log4jVersion = '2.9.0'
+ext.dockerClientVersion = '8.11.1'
+ext.integrityVersion = '0.4.0-SNAPSHOT'
+
+rootProject.ext {
+    libraries = [
+
+            docker_client                : [group: "com.spotify", name: "docker-client", version: dockerClientVersion],
+
+            guava : 'com.google.guava:guava:24.0-jre',
+
+            integrity : "org.rebaze.integrity:org.rebaze.integrity.tree:${integrityVersion}"
+    ]
+}

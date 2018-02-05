@@ -1,6 +1,8 @@
 package org.cloudarena.junit.core;
 
 import org.cloudarena.api.DependencyService;
+import org.cloudarena.docker.api.DockerContainerDependencyInstaller;
+import org.cloudarena.docker.core.DockerImageDependency;
 import org.junit.platform.engine.*;
 import org.rebaze.integrity.tree.api.Tree;
 import org.rebaze.integrity.tree.api.TreeSession;
@@ -71,8 +73,20 @@ public class SimpleEngine implements TestEngine
                     request.getEngineExecutionListener().executionStarted( test );
                     Object arena = dependency.getJavaClass().newInstance();
                     dependency.getJavaMethod().setAccessible( true );
-                    DependencyService service = ( DependencyService ) dependency.getJavaMethod()
-                        .invoke( arena );
+                    Class<?>[] paramTypes = dependency.getJavaMethod().getParameterTypes();
+                    if (paramTypes.length != 1) {
+                        throw new RuntimeException("Dependency must have exactly one argument.");
+                    }
+//                    if (paramTypes[0].isAssignableFrom( DockerContainerDependencyInstaller.class )) {
+
+                    Class<?> type = paramTypes[0];
+                    if (!DockerContainerDependencyInstaller.class.isAssignableFrom( type )) {
+                        throw new RuntimeException("Dependency injection other than single docker not supported yet.");
+                    }
+                    DockerContainerDependencyInstaller installer = new DockerImageDependency();
+                    dependency.getJavaMethod().invoke( arena, installer );
+                    DependencyService service = ( DependencyService )installer;
+                        // should be ready to use now:
                     handleDependency( request, dependency, service );
                 }
                 catch ( Exception e )

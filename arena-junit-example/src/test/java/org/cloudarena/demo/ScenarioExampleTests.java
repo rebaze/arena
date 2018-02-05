@@ -1,7 +1,8 @@
 package org.cloudarena.demo;
 
-import org.cloudarena.api.*;
-import org.cloudarena.docker.core.DockerImageDependency;
+import org.cloudarena.api.TestSubject;
+import org.cloudarena.docker.api.DockerContainerDependencyInstaller;
+import org.cloudarena.docker.core.MariaDbServiceInstaller;
 import org.cloudarena.junit.api.Arena;
 import org.cloudarena.junit.api.Candidate;
 import org.cloudarena.junit.api.Dependency;
@@ -10,8 +11,6 @@ import org.cloudarena.junit.core.AdhocDeployment;
 import org.cloudarena.junit.core.ClasspathDeployment;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.cloudarena.docker.core.DockerImageDependency.docker;
-import static org.cloudarena.docker.core.DockerImageDependency.mariaDB;
 
 @Arena
 public class ScenarioExampleTests
@@ -33,16 +32,13 @@ public class ScenarioExampleTests
     }
 
     @Dependency
-    DockerImageDependency mariadb()
+    void mariadb(DockerContainerDependencyInstaller docker)
     {
-        return docker( "mariadb:latest" );
+        docker.image( "mariadb:latest" );
     }
 
     @Dependency
-    DependencyService mariadbService()
-    {
-        return mariaDB();
-    }
+    void mariadbService(MariaDbServiceInstaller mariaDB) { }
 
     // is this a blackbox or a whitebox test.
 

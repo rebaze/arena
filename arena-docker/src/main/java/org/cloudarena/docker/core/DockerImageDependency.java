@@ -6,16 +6,23 @@ import com.spotify.docker.client.messages.ContainerConfig;
 import com.spotify.docker.client.messages.ContainerCreation;
 import com.spotify.docker.client.messages.ContainerInfo;
 import org.cloudarena.api.DependencyService;
+import org.cloudarena.docker.api.DockerContainerDependencyInstaller;
 
-public class DockerImageDependency implements DependencyService
+public class DockerImageDependency implements DependencyService, DockerContainerDependencyInstaller
 {
-    private final String image;
+    private String image;
     private ContainerInfo info;
     private DockerClient docker;
 
     public DockerImageDependency( String image )
     {
         this.image = image;
+    }
+
+    public DockerImageDependency()
+    {
+
+
     }
 
     public static DependencyService mariaDB()
@@ -127,5 +134,11 @@ public class DockerImageDependency implements DependencyService
         {
             docker.close();
         }
+    }
+
+    @Override public DockerContainerDependencyInstaller image( String imageName )
+    {
+        this.image = imageName;
+        return this;
     }
 }

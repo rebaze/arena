@@ -4,11 +4,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class StandardJupiterTests
+/**
+ * A modern jupter based test.
+ */
+class StandardJupiterTests
 {
+    @Test void testSuccess()
+    {
+        // YES!
+    }
 
-    @Test
-    public void testMe()
+    @Test void testMe()
     {
         fail( "failme" );
     }

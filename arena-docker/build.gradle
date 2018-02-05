@@ -1,16 +1,4 @@
-apply plugin: 'java-library'
-apply plugin: 'maven'
-
-apply plugin: 'org.junit.platform.gradle.plugin'
-
-compileTestJava {
-    options.compilerArgs += '-parameters'
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencies {
     api project(":arena-api")
-    compile 'com.spotify:docker-client:8.10.1'
+    implementation libraries.docker_client
 }

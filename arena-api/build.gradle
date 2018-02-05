@@ -1,9 +1,3 @@
-apply plugin: 'java-library'
-apply plugin: 'maven'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencies {
-    compile 'org.rebaze.integrity:org.rebaze.integrity.tree:0.4.0-SNAPSHOT'
+    api libraries.integrity
 }

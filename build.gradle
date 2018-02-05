@@ -1,11 +1,15 @@
 buildscript {
-	repositories {
+    apply from: 'dependencies.gradle'
+
+    repositories {
 		mavenCentral()
 	}
-	dependencies {
-		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
-	}
+
+    dependencies {
+        classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}"
+    }
 }
+
 
 group = 'org.cloudarena'
 version = '0.0.1-SNAPSHOT'
@@ -17,11 +21,27 @@ tasks.withType(JavaCompile) {
 }
 
 subprojects {
+
 	repositories {
 		mavenCentral()
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 		maven { url "http://repo.maven.apache.org/maven2" }
 		mavenLocal()
+	}
+	apply plugin: 'org.junit.platform.gradle.plugin'
+
+	apply plugin: 'java-library'
+	apply plugin: 'maven'
+
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+	compileJava {
+		options.compilerArgs += '-parameters'
+	}
+
+	compileTestJava {
+		options.compilerArgs += '-parameters'
 	}
 }
 
