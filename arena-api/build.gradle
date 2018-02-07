@@ -1,3 +1,11 @@
 dependencies {
     api libraries.integrity
 }
+
+jar {
+    manifest {
+        attributes(
+                'Automatic-Module-Name': 'org.cloudarena.api'
+        )
+    }
+}
