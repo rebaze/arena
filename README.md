@@ -2,7 +2,10 @@
 
 # Rebaze Cloud Arena
 
-## Development
-Sometimes there is a live stream of arena development here:
+## Vision
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=https://www.youtube.com/rebaze/live" target="_blank"><img src="https://www.youtube.com/rebaze/live/0.jpg" alt="livestream" width="240" height="180" border="10" /></a>
+> "In the future you will be able to change software safely and ship products with high confidence at the pace you need."
+
+## Live Development Stream
+
+Sometimes there is a live stream of arena development here: https://www.youtube.com/rebaze/live
