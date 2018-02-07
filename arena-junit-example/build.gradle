@@ -1,30 +1,16 @@
-apply plugin: 'java-library'
-apply plugin: 'maven'
-
 apply plugin: 'org.junit.platform.gradle.plugin'
 
-compileTestJava {
-    options.compilerArgs += '-parameters'
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-
-jar {
-    baseName = 'junit5-gradle-consumer'
-    version = '1.0.0-SNAPSHOT'
-}
-
 junitPlatform {
+    details 'verbose'
     filters {
         engines {
-            include 'junit-jupiter', 'org.cloudarena.junit'
+            include 'junit-arena'
+            include 'junit-jupiter'
             // exclude 'custom-engine'
         }
         tags {
             // include 'fast'
-            exclude 'slow'
+            // exclude 'slow'
         }
         // includeClassNamePattern '.*Test'
     }
