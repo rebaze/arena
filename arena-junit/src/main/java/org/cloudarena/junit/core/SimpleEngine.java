@@ -15,7 +15,7 @@ public class SimpleEngine implements TestEngine
     @Override
     public String getId()
     {
-        return "org.cloudarena.junit";
+        return "junit-arena";
     }
 
     @Override
