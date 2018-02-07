@@ -31,14 +31,19 @@ public class ScenarioExampleTests
             .build();
     }
 
+    // Programmatic way.
     @Dependency
     void mariadb(DockerContainerDependencyInstaller docker)
     {
         docker.image( "mariadb:latest" );
     }
 
+    // The semi programmatic way. Useful when wanting Typed Dependencies but also want it to be executable.
     @Dependency
     void mariadbService(MariaDbServiceInstaller mariaDB) { }
+
+    // The declarative way.
+    @Dependency MariaDbServiceInstaller mariadbService;
 
     // is this a blackbox or a whitebox test.
 
