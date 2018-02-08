@@ -7,7 +7,7 @@ dependencies {
 
     api("org.junit.platform:junit-platform-engine:${junitPlatformVersion}")
 
-    api 'org.rebaze.integrity:org.rebaze.integrity.tree:0.4.0-SNAPSHOT'
+    api libraries.integrity
     implementation 'org.projectlombok:lombok:1.16.20'
     implementation libraries.guava
 
