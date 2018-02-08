@@ -50,6 +50,6 @@ public class ScenarioExampleTests
     @Plan
     void scene()
     {
-        fail( "i want to fail" );
+        //fail( "i want to fail" );
     }
 }

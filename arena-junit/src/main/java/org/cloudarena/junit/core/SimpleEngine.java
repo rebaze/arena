@@ -4,6 +4,7 @@ import org.cloudarena.api.DependencyService;
 import org.cloudarena.docker.api.DockerContainerDependencyInstaller;
 import org.cloudarena.docker.api.TypedDockerInstaller;
 import org.cloudarena.docker.core.DockerImageDependency;
+import org.cloudarena.junit.discovery.ScenarioDiscovery;
 import org.junit.platform.engine.*;
 import org.rebaze.integrity.tree.api.Tree;
 import org.rebaze.integrity.tree.api.TreeSession;
