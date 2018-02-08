@@ -13,6 +13,16 @@ tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
 
+
+allprojects {
+	apply plugin: 'java-library'
+	apply plugin: 'maven'
+}
+
+subprojects {
+	task listAllDependencies(type: DependencyReportTask) {}
+}
+
 subprojects {
 
 	repositories {
@@ -21,9 +31,6 @@ subprojects {
 		maven { url "http://repo.maven.apache.org/maven2" }
 		mavenLocal()
 	}
-
-	apply plugin: 'java-library'
-	apply plugin: 'maven'
 
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
@@ -36,5 +43,6 @@ subprojects {
 		options.compilerArgs += '-parameters'
 	}
 }
+
 
 
