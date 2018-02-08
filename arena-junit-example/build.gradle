@@ -12,7 +12,7 @@ junitPlatform {
             // include 'fast'
             // exclude 'slow'
         }
-        // includeClassNamePattern '.*Test'
+        includeClassNamePattern '^.*Tests?$'
     }
     // configurationParameter 'junit.jupiter.conditions.deactivate', '*'
     // enableStandardTestTask true
@@ -21,8 +21,9 @@ junitPlatform {
 }
 
 dependencies {
-    api project(":arena-junit")
-    api project(":arena-docker")
+    testCompile project(":arena-api")
+    testCompile project(":arena-junit")
+    testCompile project(":arena-docker")
 
 
     api group: 'org.slf4j', name: 'slf4j-api', version: '1.6.1'
