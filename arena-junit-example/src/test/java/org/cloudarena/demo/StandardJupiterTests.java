@@ -32,7 +32,7 @@ class StandardJupiterTests
         assertEquals( 2, engines.size() );
         for ( TestEngine engine : engines )
         {
-            System.out.println( "Engine Y : " + engine.getId() );
+            //System.out.println( "Engine Y : " + engine.getId() );
         }
 
         //fail( "failme" );
