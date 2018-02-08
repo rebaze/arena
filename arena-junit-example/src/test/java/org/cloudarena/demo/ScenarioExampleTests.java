@@ -10,7 +10,7 @@ import org.cloudarena.junit.api.Plan;
 import org.cloudarena.junit.core.AdhocDeployment;
 import org.cloudarena.junit.core.ClasspathDeployment;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Java6Assertions.fail;
 
 @Arena
 public class ScenarioExampleTests
@@ -27,8 +27,7 @@ public class ScenarioExampleTests
     @Candidate
     TestSubject fromGradleClassPath()
     {
-        return ClasspathDeployment.builder().gav( "org.rebaze.integrity:org.rebaze.integrity.tree" )
-            .build();
+        return ClasspathDeployment.builder().gav( "org.rebaze.integrity:org.rebaze.integrity.tree" ).build();
     }
 
     // Programmatic way.
@@ -50,6 +49,6 @@ public class ScenarioExampleTests
     @Plan
     void scene()
     {
-        //fail( "i want to fail" );
+        fail( "i want to fail" );
     }
 }

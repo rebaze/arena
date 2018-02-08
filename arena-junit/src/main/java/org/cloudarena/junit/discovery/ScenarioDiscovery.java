@@ -4,14 +4,12 @@ import org.cloudarena.junit.api.Arena;
 import org.cloudarena.junit.api.Candidate;
 import org.cloudarena.junit.api.Dependency;
 import org.cloudarena.junit.api.Plan;
-import org.cloudarena.junit.core.ArenaEngineDescriptor;
-import org.cloudarena.junit.core.DeploymentTestDescriptor;
-import org.cloudarena.junit.core.ScenarioDependencyDescriptor;
-import org.cloudarena.junit.core.ScenarioTestDescriptor;
+import org.cloudarena.junit.core.*;
 import org.junit.platform.commons.util.ClassFilter;
 import org.junit.platform.commons.util.ClassLoaderUtils;
 import org.junit.platform.commons.util.ReflectionUtils;
 import org.junit.platform.engine.EngineDiscoveryRequest;
+import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.discovery.*;
 
 import java.lang.reflect.Method;
@@ -22,18 +20,27 @@ public class ScenarioDiscovery
     public void resolveSelectors( EngineDiscoveryRequest discoveryRequest,
         ArenaEngineDescriptor engineDescriptor )
     {
-        // just assume that annotating the class with Arena is fine for now:
-       // discoveryRequest.
-        System.out.println("Discover now: " + discoveryRequest);
-        System.out.println("Filter Class   : " + discoveryRequest.getFiltersByType( ClassNameFilter.class ));
-        System.out.println("Filter Package : " + discoveryRequest.getFiltersByType( PackageNameFilter.class ));
+        ArenaContainerTestDescriptor desc = new ArenaContainerTestDescriptor(engineDescriptor.getUniqueId());
+        engineDescriptor.addChild( desc );
 
+        scanByClasspathRootSelector( discoveryRequest, desc );
+        scanByClassSelector( discoveryRequest, desc );
+        scanByMethodSelector( discoveryRequest, desc );
+
+        System.out.println("Arena Tests found: " + desc.getChildren().size());
+
+    }
+
+    private void scanByClasspathRootSelector( EngineDiscoveryRequest discoveryRequest,
+        TestDescriptor desc )
+    {
         List<ClasspathRootSelector> roots = discoveryRequest.getSelectorsByType( ClasspathRootSelector.class );
         ClasspathScanner classpathScanner = new ClasspathScanner(
             ClassLoaderUtils::getDefaultClassLoader, ReflectionUtils::loadClass);
 
         for ( ClasspathRootSelector root : roots ) {
-            List<Class<?>> scanned = classpathScanner.scanForClassesInClasspathRoot( root.getClasspathRoot(), ClassFilter.of(clazz -> true) );
+            List<Class<?>> scanned = classpathScanner.scanForClassesInClasspathRoot( root.getClasspathRoot(), ClassFilter
+                .of(clazz -> true) );
             for ( Class<?> clazz : scanned){
                 // use that:
                 if ( clazz.isAnnotationPresent( Arena.class ) )
@@ -42,8 +49,8 @@ public class ScenarioDiscovery
                     {
                         if ( m.isAnnotationPresent( Plan.class ) )
                         {
-                            engineDescriptor.addChild(
-                                new ScenarioTestDescriptor( engineDescriptor.getUniqueId(),
+                            desc.addChild(
+                                new ScenarioTestDescriptor( desc.getUniqueId(),
                                     clazz, m ) );
                         }
                     }
@@ -51,7 +58,10 @@ public class ScenarioDiscovery
             }
             // scan classes from here..
         }
+    }
 
+    private void scanByClassSelector( EngineDiscoveryRequest discoveryRequest, TestDescriptor desc )
+    {
         List<ClassSelector> classes = discoveryRequest.getSelectorsByType( ClassSelector.class );
         for ( ClassSelector clazz : classes )
         {
@@ -62,14 +72,18 @@ public class ScenarioDiscovery
                 {
                     if ( m.isAnnotationPresent( Plan.class ) )
                     {
-                        engineDescriptor.addChild(
-                            new ScenarioTestDescriptor( engineDescriptor.getUniqueId(),
+                        desc.addChild(
+                            new ScenarioTestDescriptor( desc.getUniqueId(),
                                 clazz.getJavaClass(), m ) );
                     }
                 }
             }
         }
+    }
 
+    private void scanByMethodSelector( EngineDiscoveryRequest discoveryRequest,
+        TestDescriptor desc )
+    {
         List<MethodSelector> methods = discoveryRequest.getSelectorsByType( MethodSelector.class );
         for ( MethodSelector m : methods )
         {
@@ -77,26 +91,24 @@ public class ScenarioDiscovery
 
             if ( m.getJavaMethod().isAnnotationPresent( Candidate.class ) )
             {
-                engineDescriptor.addChild(
-                    new DeploymentTestDescriptor( engineDescriptor.getUniqueId(), m.getJavaClass(),
+                desc.addChild(
+                    new DeploymentTestDescriptor( desc.getUniqueId(), m.getJavaClass(),
                         m.getJavaMethod() ) );
             }
 
             if ( m.getJavaMethod().isAnnotationPresent( Plan.class ) )
             {
-                engineDescriptor.addChild(
-                    new ScenarioTestDescriptor( engineDescriptor.getUniqueId(), m.getJavaClass(),
+                desc.addChild(
+                    new ScenarioTestDescriptor( desc.getUniqueId(), m.getJavaClass(),
                         m.getJavaMethod() ) );
             }
 
             if ( m.getJavaMethod().isAnnotationPresent( Dependency.class ) )
             {
-                engineDescriptor.addChild(
-                    new ScenarioDependencyDescriptor( engineDescriptor.getUniqueId(),
+                desc.addChild(
+                    new ScenarioDependencyDescriptor( desc.getUniqueId(),
                         m.getJavaClass(), m.getJavaMethod() ) );
             }
         }
-        System.out.println("Arena Tests found: " + engineDescriptor.getChildren().size());
-
     }
 }

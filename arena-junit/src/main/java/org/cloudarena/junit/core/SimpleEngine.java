@@ -31,87 +31,103 @@ public class SimpleEngine implements TestEngine
     public void execute( ExecutionRequest request )
     {
         TestDescriptor desc = request.getRootTestDescriptor();
+        executeStyles( request, desc );
+        //request.getEngineExecutionListener() .executionFinished( desc, TestExecutionResult.successful() );
+    }
 
-        for ( TestDescriptor test : desc.getChildren() )
+    private void executeStyles( ExecutionRequest request, TestDescriptor test )
+    {
+        request.getEngineExecutionListener().executionStarted( test );
+        if ( test instanceof ScenarioTestDescriptor )
         {
-            // lets just create an instance and go with it
-
-            if ( test instanceof ScenarioTestDescriptor )
-            {
-                ScenarioTestDescriptor stest = ( ScenarioTestDescriptor ) test;
-                try
-                {
-                    TreeSession session = new DefaultTreeSessionFactory().create();
-                    // Add Candidate and Dependency to tree
-                    Tree result = session.createTreeBuilder()
-                        //.branch(deployment.tree()) // add the deployment itself first
-                        .seal();
-                    request.getEngineExecutionListener().executionStarted( test );
-                    executeArena( request, stest );
-                    request.getEngineExecutionListener()
-                        .executionFinished( test, TestExecutionResult.successful() );
-                }
-                catch ( Exception e )
-                {
-                    request.getEngineExecutionListener()
-                        .executionFinished( test, TestExecutionResult.failed( e ) );
-                }
-
+            runScenario( request,  (ScenarioTestDescriptor ) test );
+        }
+        else if ( test instanceof DeploymentTestDescriptor )
+        {
+            runDeployment( request, ( DeploymentTestDescriptor ) test );
+        }
+        else if ( test instanceof ScenarioDependencyDescriptor )
+        {
+            runDependency( request, ( ScenarioDependencyDescriptor ) test );
+        } else {
+            for ( TestDescriptor t : test.getChildren() ) {
+                executeStyles( request,t );
             }
-            else if ( test instanceof DeploymentTestDescriptor )
-            {
-                DeploymentTestDescriptor stest = ( DeploymentTestDescriptor ) test;
-                // we assume that to be successful
-                request.getEngineExecutionListener().executionStarted( test );
-                request.getEngineExecutionListener()
-                    .executionFinished( test, TestExecutionResult.successful() );
+        }
+        request.getEngineExecutionListener().executionFinished( test,TestExecutionResult.successful() );
 
+    }
+
+    private void runDependency( ExecutionRequest request, ScenarioDependencyDescriptor dependency )
+    {
+        try
+        {
+            request.getEngineExecutionListener().executionStarted( dependency );
+            Object arena = dependency.getJavaClass().newInstance();
+            dependency.getJavaMethod().setAccessible( true );
+            Class<?>[] paramTypes = dependency.getJavaMethod().getParameterTypes();
+            if (paramTypes.length != 1) {
+                throw new RuntimeException("Dependency must have exactly one argument.");
             }
-            else if ( test instanceof ScenarioDependencyDescriptor )
-            {
-                ScenarioDependencyDescriptor dependency = ( ScenarioDependencyDescriptor ) test;
-                try
-                {
-                    request.getEngineExecutionListener().executionStarted( test );
-                    Object arena = dependency.getJavaClass().newInstance();
-                    dependency.getJavaMethod().setAccessible( true );
-                    Class<?>[] paramTypes = dependency.getJavaMethod().getParameterTypes();
-                    if (paramTypes.length != 1) {
-                        throw new RuntimeException("Dependency must have exactly one argument.");
-                    }
 //                    if (paramTypes[0].isAssignableFrom( DockerContainerDependencyInstaller.class )) {
 
-                    Class<?> type = paramTypes[0];
+            Class<?> type = paramTypes[0];
 
-                    DockerContainerDependencyInstaller installer = new DockerImageDependency();
-                    DependencyService service = ( DependencyService )installer;
-                    if (DockerContainerDependencyInstaller.class.isAssignableFrom( type )) {
-                        dependency.getJavaMethod().invoke( arena, installer );
-                        // should be ready to use now:
-                    }else if (TypedDockerInstaller.class.isAssignableFrom( type )) {
-                        TypedDockerInstaller typedInstaller = (TypedDockerInstaller) type.newInstance();
-                        typedInstaller.install(installer);
+            DockerContainerDependencyInstaller installer = new DockerImageDependency();
+            DependencyService service = ( DependencyService )installer;
+            if (DockerContainerDependencyInstaller.class.isAssignableFrom( type )) {
+                dependency.getJavaMethod().invoke( arena, installer );
+                // should be ready to use now:
+            }else if (TypedDockerInstaller.class.isAssignableFrom( type )) {
+                TypedDockerInstaller typedInstaller = (TypedDockerInstaller) type.newInstance();
+                typedInstaller.install(installer);
 
-                    }else {
-                        throw new RuntimeException("Dependency injection other than single docker not supported yet.");
-
-                    }
-                    handleDependency( request, dependency, service );
-
-                }
-                catch ( Exception e )
-                {
-                    request.getEngineExecutionListener()
-                        .executionFinished( test, TestExecutionResult.failed( e ) );
-                }
+            }else {
+                throw new RuntimeException("Dependency injection other than single docker not supported yet.");
 
             }
+            handleDependency( request, dependency, service );
+            request.getEngineExecutionListener()
+                .executionFinished( dependency, TestExecutionResult.successful() );
+
+        }
+        catch ( Exception e )
+        {
+            request.getEngineExecutionListener()
+                .executionFinished( dependency, TestExecutionResult.failed( e ) );
+        }
+    }
+
+    private void runDeployment( ExecutionRequest request, TestDescriptor test )
+    {
+        request.getEngineExecutionListener().executionStarted( test );
+        request.getEngineExecutionListener()
+            .executionFinished( test, TestExecutionResult.successful() );
+    }
+
+    private void runScenario( ExecutionRequest request, ScenarioTestDescriptor test )
+    {
+        try
+        {
+            TreeSession session = new DefaultTreeSessionFactory().create();
+            // Add Candidate and Dependency to tree
+            Tree result = session.createTreeBuilder()
+                //.branch(deployment.tree()) // add the deployment itself first
+                .seal();
+            executeArena( request, test );
+        }
+        catch ( Exception e )
+        {
+            request.getEngineExecutionListener()
+                .executionFinished( test, TestExecutionResult.failed( e ) );
         }
     }
 
     private void executeArena( ExecutionRequest request, ScenarioTestDescriptor stest )
         throws InstantiationException, IllegalAccessException
     {
+        request.getEngineExecutionListener().executionStarted( stest );
+
         Object arena = stest.getJavaClass().newInstance();
         stest.getJavaMethod().setAccessible( true );
         try
@@ -119,6 +135,8 @@ public class SimpleEngine implements TestEngine
             // only run the arena without deps for now:
 
             stest.getJavaMethod().invoke( arena );
+            request.getEngineExecutionListener()
+                .executionFinished( stest, TestExecutionResult.successful() );
         }
         catch ( Exception e )
         {
@@ -140,7 +158,5 @@ public class SimpleEngine implements TestEngine
         {
             service.destroy();
         }
-        request.getEngineExecutionListener()
-            .executionFinished( test, TestExecutionResult.successful() );
     }
 }
