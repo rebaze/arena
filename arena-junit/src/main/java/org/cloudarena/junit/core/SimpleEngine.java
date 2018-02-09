@@ -30,9 +30,7 @@ public class SimpleEngine implements TestEngine
     @Override
     public void execute( ExecutionRequest request )
     {
-        TestDescriptor desc = request.getRootTestDescriptor();
-        executeStyles( request, desc );
-        //request.getEngineExecutionListener() .executionFinished( desc, TestExecutionResult.successful() );
+        executeStyles( request, request.getRootTestDescriptor() );
     }
 
     private void executeStyles( ExecutionRequest request, TestDescriptor test )
@@ -98,7 +96,7 @@ public class SimpleEngine implements TestEngine
         }
     }
 
-    private void runDeployment( ExecutionRequest request, TestDescriptor test )
+    private void runDeployment( ExecutionRequest request, DeploymentTestDescriptor test )
     {
         request.getEngineExecutionListener().executionStarted( test );
         request.getEngineExecutionListener()
