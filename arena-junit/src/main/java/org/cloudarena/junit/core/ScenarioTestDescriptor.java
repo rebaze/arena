@@ -2,7 +2,7 @@ package org.cloudarena.junit.core;
 
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor;
-import org.junit.platform.engine.support.descriptor.ClassSource;
+import org.junit.platform.engine.support.descriptor.MethodSource;
 
 import java.lang.reflect.Method;
 
@@ -15,7 +15,7 @@ public class ScenarioTestDescriptor extends AbstractTestDescriptor
     public ScenarioTestDescriptor( UniqueId uniqueId, Class<?> javaClass, Method m )
     {
         super( uniqueId.append( "scenario", javaClass.getName() ), "Arena: " + javaClass.getName(),
-            ClassSource.from( javaClass ) );
+            MethodSource.from( javaClass.getName(),m.getName() ) );
         this.javaClass = javaClass;
         this.javaMethod = m;
     }
